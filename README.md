@@ -1,5 +1,7 @@
 # Codsoft-Internship
 
 TASK 1:NUMBER GUESSING GAME
+<br>
 TASK 2:SIMPLE CALCULATOR
+<br>
 TASK 3:TO-DO LIST
