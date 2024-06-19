@@ -1,91 +1,118 @@
 #include <iostream>
 using namespace std;
 const int SIZE = 3;
-char board[SIZE][SIZE];
-void initializeBoard() {
+char GameBoard[SIZE][SIZE];
+void initializeGameBoard()
+{
     char initial = '1';
-    for (int i = 0; i < SIZE; ++i) {
-        for (int j = 0; j < SIZE; ++j) {
-            board[i][j] = initial++;
+    for (int i = 0; i < SIZE; ++i)
+    {
+        for (int j = 0; j < SIZE; ++j)
+        {
+            GameBoard[i][j] = initial++;
         }
     }
 }
-void displayBoard() {
-    for (int i = 0; i < SIZE; ++i) {
-        for (int j = 0; j < SIZE; ++j) {
-             cout << board[i][j] << " ";
+void displayGameBoard()
+{
+    for (int i = 0; i < SIZE; ++i)
+    {
+        for (int j = 0; j < SIZE; ++j)
+        {
+            cout << GameBoard[i][j] << " ";
         }
-         cout <<  endl;
+        cout << endl;
     }
 }
-bool checkWin(char player) {
-    for (int i = 0; i < SIZE; ++i) {
-        if ((board[i][0] == player && board[i][1] == player && board[i][2] == player) ||
-            (board[0][i] == player && board[1][i] == player && board[2][i] == player)) {
+bool checkWin(char player)
+{
+    for (int i = 0; i < SIZE; ++i)
+    {
+        if ((GameBoard[i][0] == player && GameBoard[i][1] == player && GameBoard[i][2] == player) ||
+            (GameBoard[0][i] == player && GameBoard[1][i] == player && GameBoard[2][i] == player))
+        {
             return true;
         }
     }
-    if ((board[0][0] == player && board[1][1] == player && board[2][2] == player) ||
-        (board[0][2] == player && board[1][1] == player && board[2][0] == player)) {
+    if ((GameBoard[0][0] == player && GameBoard[1][1] == player && GameBoard[2][2] == player) ||
+        (GameBoard[0][2] == player && GameBoard[1][1] == player && GameBoard[2][0] == player))
+    {
         return true;
     }
     return false;
 }
-bool checkDraw() {
-    for (int i = 0; i < SIZE; ++i) {
-        for (int j = 0; j < SIZE; ++j) {
-            if (board[i][j] != 'X' && board[i][j] != 'O') {
+bool checkDraw()
+{
+    for (int i = 0; i < SIZE; ++i)
+    {
+        for (int j = 0; j < SIZE; ++j)
+        {
+            if (GameBoard[i][j] != 'X' && GameBoard[i][j] != 'O')
+            {
                 return false;
             }
         }
     }
     return true;
 }
-bool makeMove(char player, int move) {
+bool makeMove(char player, int move)
+{
     int row = (move - 1) / SIZE;
     int col = (move - 1) % SIZE;
-    if (board[row][col] != 'X' && board[row][col] != 'O') {
-        board[row][col] = player;
+    if (GameBoard[row][col] != 'X' && GameBoard[row][col] != 'O')
+    {
+        GameBoard[row][col] = player;
         return true;
-    } else {
-         cout << "Invalid move. Try again." <<  endl;
+    }
+    else
+    {
+        cout << "Invalid move. Try again." << endl;
         return false;
     }
 }
-bool playGame() {
-    initializeBoard();
+bool playGame()
+{
+    initializeGameBoard();
     char currentPlayer = 'X';
     int move;
-    while (true) {
-        displayBoard();
-         cout << "Player " << currentPlayer << ", enter your move (1-9): ";
-         cin >> move;
-        if (move < 1 || move > 9) {
-             cout << "Invalid input. Enter a number between 1 and 9." <<  endl;
+    while (true)
+    {
+        displayGameBoard();
+        cout << "Player " << currentPlayer << ", Enter your move between 1 to 9: ";
+        cin >> move;
+        if (move < 1 || move > 9)
+        {
+            cout << "Invalid input. Enter a number between 1 and 9." << endl;
             continue;
         }
-        if (makeMove(currentPlayer, move)) {
-            if (checkWin(currentPlayer)) {
-                displayBoard();
-                 cout << "Player " << currentPlayer << " wins!" <<  endl;
+        if (makeMove(currentPlayer, move))
+        {
+            if (checkWin(currentPlayer))
+            {
+                displayGameBoard();
+                cout << "Player " << currentPlayer << " Wins!" << endl;
                 return true;
-            } else if (checkDraw()) {
-                displayBoard();
-                 cout << "The game is a draw!" <<  endl;
+            }
+            else if (checkDraw())
+            {
+                displayGameBoard();
+                cout << "The game is a Draw!" << endl;
                 return true;
             }
             currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
         }
     }
 }
-int main() {
+int main()
+{
     char playAgain;
-    do {
+    do
+    {
         playGame();
-         cout << "Do you want to play another game? (y/n): ";
-         cin >> playAgain;
-    } 
-    while (playAgain == 'y' || playAgain == 'Y');
-        cout << "Thanks for playing!" <<  endl;
+        cout << "Do you want to play another game? (yes/no): ";
+        cin >> playAgain;
+    } while (playAgain == 'yes' || playAgain == 'Yes');
+    cout << "Thanks for playing!" << endl;
     return 0;
 }
+
